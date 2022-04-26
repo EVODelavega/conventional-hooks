@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+colour_red='\033[1;31m'
+colour_end='\033[0m'
+
+target_branch="${MAIN_BRACH:-develop}"
+changelog_file="CHANGELOG.md"
+
+if [ -f "${changelog_file}" ]; then
+    # We have a changelog, ensure it's updated
+    git diff --name-only "${target_branch}" | grep -q "${changelog_file}" && exit 0
+    ## Changelog not updated, return error
+    echo -e " ${colour_red}${chagelog_file} needs updating!!${colour_end}"
+    exit 1
+fi

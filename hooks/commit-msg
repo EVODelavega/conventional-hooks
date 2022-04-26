@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+colour_orange='\033[0;33m'
+colour_end='\033[0m'
+
+commit_msg="${1}"
+commit_src="${2}"
+commit_hash="${3}"
+
+## check commit message matches the pattern, allows feat and feat. (same for perf and perf.) and 1 space before : (some people have bad habbits)
+## ensures the message is not empty, other than that, it's pretty simple
+[[ $commit_msg =~ ^(build|fix|ci|docs|feat\.?|fix|perf\.?|refactor|style|test|chore)(\([^\)]*\)){0,1}[[:space:]]{0,1}:[[:space:]]{1,}[[:alnum:]] ]] && exit 0
+
+## Simple message indicating the commit message doesn't match the expected pattern, and exit with error code
+echo -e "Use conventional commit messages: ${colour_orange}prefix[(optional scope)]: <commit message>${colour_end}"
+exit 1
