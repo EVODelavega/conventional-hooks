@@ -36,7 +36,11 @@ copy_hook() {
         cp "hooks/${2}" "${1}/${2}" && echo "Replaced hook ${2}" # copy to target
     elif [ "${mode}" = soft ]; then
         ## only copy if overwrite is needed
-        [ -f "${1}/${2}" ] && echo "A ${2} hook was already found, skipping..." || cp "hooks/${2}" "${1}/${2}"
+        if [ -f "${1}/${2}" ]; then
+            echo "A ${2} hook was already found, skipping..."
+        else 
+            cp "hooks/${2}" "${1}/${2}"
+        fi
     else
         prompt_copy "${1}" "${2}"
     fi
@@ -82,7 +86,8 @@ hooks_path="${target_repo}/.git/hooks"
 [ ! -d "${hooks_path}" ] && echo "${target_repo} does not contain the expected .git/hooks subdirectories" && Usage 2
 
 # copy hooks
-for f in $(ls hooks/); do
+for f in hooks/* ; do
+    f="${f##*/}"
     copy_hook "${hooks_path}" "${f}" "${mode}"
 done
 
