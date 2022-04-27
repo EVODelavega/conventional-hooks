@@ -2,6 +2,16 @@
 
 Small repo for git hooks to ensure conventional commit stuff is followed.
 
+## Installing
+
+The hooks in this repo can be easily installed using the included `install-hooks.sh` script. Basic usage:
+
+```bash
+./install-hooks.sh -r /path/to/target/repo
+```
+
+This will install the hooks discussed below if there are no existing hooks set up. Use `./install-hooks.sh -h` for more details.
+
 ## The hooks
 
 So far, there's only 2 hooks:
@@ -44,4 +54,3 @@ This hook outputs an error message if the message doesn't match the expected pat
 1. Ensure scripts are portable. These hooks have been tested on Linux only. Mac runs an old version of bash by default, so POSIX BRE for the matching might be advisable.
 2. Expand on hooks when applying patches, rebasing, merging, ...
 3. See whether the pre-commit hook can be used as a pre-push hook to avoid making a minor change to `CHANGELOG.md`.
-4. Automate hook deployment/customisation (ie have scripts to set up the hooks, use parameters to customise them during deployment).
