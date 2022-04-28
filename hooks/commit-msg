@@ -3,7 +3,7 @@
 colour_orange='\033[0;33m'
 colour_end='\033[0m'
 
-commit_msg="${1}"
+commit_msg="$(cat "${1}")"
 commit_src="${2}"
 commit_hash="${3}"
 
